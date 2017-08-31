@@ -1,0 +1,10 @@
+Thanks for your order
+===============================================
+ 
+You have purchased:
+<% @items.each do |item| %>
+  <%= item.product.name %>
+  Quantity: <%= item.quantity %>
+  Item Total: $<%= item.total_price_cents/100 %>.<%= item.total_price_cents%100 %>
+<% end %>
+Order Total: $<%= @order.total_cents/100 %>.<%= @order.total_cents%100 %>

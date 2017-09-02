@@ -23,9 +23,37 @@
           <dt>Price</dt>
           <dd><%= @product.price %></dd>
         </dl>
+        <% if current_user %>
+          <h3>Review this product</h3>
+          <%= form_for [@product, @review] do |f| %>
+            <%= f.label :description %>
+            <%= f.text_area :description %>
+
+            <%= f.label :rating %>
+            <%= f.select :rating, ['5', '4', '3', '2', '1'] %>
+            <%= f.submit %>
+          <% end %>
+        <% end %>
       </div>
     </div>
-
+      
+    <div class="col-sm-8">
+      <div class="dl-horizontal">
+        <% @reviews.each do |review| %>
+          <br>
+          <dt>Review:</dt>
+          <dd><%= review.description %></dd>
+          <dt>Rating:</dt>
+          <dd><%= review.rating %></dd>
+          <dt>User:</dt>
+          <dd><%= review.user.first_name %></dd>
+          <% if User.find(review.user.id) == current_user %>
+            <dd><%= link_to "Delete Review", review, method: :delete %></dd>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
   </article>
+   
 
 </section>

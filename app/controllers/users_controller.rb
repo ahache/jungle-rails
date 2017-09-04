@@ -4,18 +4,18 @@ class UsersController < ApplicationController
   end
 
   def create
-    # check if passwords are same
     user = User.new(user_params)
+    user.email = user.email.downcase
     if user.save
       session[:user_id] = user.id
       redirect_to '/'
     else
-      redirect_to 'register'
+      redirect_to '/register'
     end
   end
 
   private
-    def user_params
+    def user_param
       params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
     end
 end
